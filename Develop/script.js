@@ -11,10 +11,10 @@ var newPassword = [];
 
 //empty object array so i can push the valid lists from the users input
 var validCharLists = {
-  uppercase: [],
-  lowercase: [],
-  numbers: [],
-  specialCharacters: [],
+  uppercase: "",
+  lowercase: "",
+  numbers: "",
+  specialCharacters: "",
 };
 
 var characters = {
@@ -119,42 +119,38 @@ var minRequirements = function (reqObj) {
     char = randListNum(characters.lowercase);
     //add the char that was randomly selected to the newPassword array
     newPassword.push(char);
-    //pushing the minRequirement lists in a new list to iterate over later
-    validCharLists.lowercase.push(characters.lowercase);
-    console.log(validCharLists.lowercase);
+    //assigning the minRequirement lists in a new list to iterate over later
+    validCharLists.lowercase = characters.lowercase;
   } else {
+    //remove the object if not required in the char type for the password
     delete validCharLists.lowercase;
-    console.log(validCharLists);
   }
   if (reqObj.uppercase === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.uppercase);
     newPassword.push(char);
-    validCharLists.uppercase.push(characters.uppercase);
-    console.log(newPassword);
+    validCharLists.uppercase = characters.uppercase;
   } else {
     delete validCharLists.uppercase;
-    console.log(validCharLists);
   }
   if (reqObj.numeric === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.numbers);
+    console.log(characters.numbers);
     newPassword.push(char);
-    validCharLists.numbers.push(characters.numbers);
-    console.log(newPassword);
+    validCharLists.numbers = characters.numbers;
+    console.log(validCharLists.numbers);
   } else {
     delete validCharLists.numbers;
-    console.log(validCharLists);
   }
   if (reqObj.specialCharacters === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.specialCharacters);
     newPassword.push(char);
-    validCharLists.specialCharacters.push(characters.specialCharacters);
+    validCharLists.specialCharacters = characters.specialCharacters;
     console.log(newPassword);
   } else {
     delete validCharLists.specialCharacters;
-    console.log(validCharLists);
   }
 };
 
@@ -164,41 +160,42 @@ var randListNum = function (objList) {
 };
 
 //function that fills the remaining length after the minimun requirements have been met
-var completePasswordLength = function () {
+var completePasswordLength = function (objList) {
   //if the requested pass length and the current length of the new password are not the same run the while loop
   while (passwordCriteria.length !== newPassword.length) {
-    //get a random number based on the length of the characters object array
-    var randObjNum = Math.floor(
-      Math.random() * Object.keys(validCharLists).length
-    );
-    // value returned is the name of the object
-    var list = Object.keys(characters)[randObjNum];
-    console.log(list);
+    //get a random number based on the length of the characters object
+    var randObjNum = Math.floor(Math.random() * Object.keys(objList).length);
+
+    // value returned is the name of the array in object
+    var list = Object.keys(objList)[randObjNum];
     var char;
+
+    //finds the array selected and randomly extracts a char from it
     switch (list) {
       case "lowercase":
         if (passwordCriteria.lowercase) {
-          char = randListNum(characters.lowercase);
+          char = randListNum(objList.lowercase);
         }
         break;
       case "uppercase":
         if (passwordCriteria.uppercase) {
-          char = randListNum(characters.uppercase);
+          char = randListNum(objList.uppercase);
         }
         break;
       case "numbers":
         if (passwordCriteria.numeric) {
-          char = randListNum(characters.numbers);
+          char = randListNum(objList.numbers);
         }
         break;
       case "specialCharacters":
         if (passwordCriteria.specialCharacters) {
-          char = randListNum(characters.specialCharacters);
+          char = randListNum(objList.specialCharacters);
         }
         break;
       default:
         console.log(" default switch statement");
     }
+    console.log(char);
     newPassword.push(char);
   }
   console.log(newPassword);
@@ -285,6 +282,22 @@ var charTypes = function () {
     charTypes();
   }
 };
+var reset = function () {
+  newPassword = [];
+  validCharLists = {
+    uppercase: [],
+    lowercase: [],
+    numbers: [],
+    specialCharacters: [],
+  };
+  passwordCriteria = {
+    length: 0,
+    lowercase: false,
+    uppercase: false,
+    numeric: false,
+    specialCharacters: false,
+  };
+};
 
 var generatePassword = function () {
   // call length function
@@ -292,9 +305,9 @@ var generatePassword = function () {
   passwordLength();
   charTypes();
   minRequirements(passwordCriteria);
-  completePasswordLength();
-  //resetting the array to empty
-  newPassword = [];
+  completePasswordLength(validCharLists);
+  //resetting values so user can refresh and have another go
+  reset();
 };
 
 // Get references to the #generate element
