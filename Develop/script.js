@@ -9,6 +9,14 @@ var passwordCriteria = {
 
 var newPassword = [];
 
+//empty object array so i can push the valid lists from the users input
+var validCharLists = {
+  uppercase: [],
+  lowercase: [],
+  numbers: [],
+  specialCharacters: [],
+};
+
 var characters = {
   uppercase: [
     "A",
@@ -111,25 +119,42 @@ var minRequirements = function (reqObj) {
     char = randListNum(characters.lowercase);
     //add the char that was randomly selected to the newPassword array
     newPassword.push(char);
-    console.log(newPassword);
+    //pushing the minRequirement lists in a new list to iterate over later
+    validCharLists.lowercase.push(characters.lowercase);
+    console.log(validCharLists.lowercase);
+  } else {
+    delete validCharLists.lowercase;
+    console.log(validCharLists);
   }
   if (reqObj.uppercase === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.uppercase);
     newPassword.push(char);
+    validCharLists.uppercase.push(characters.uppercase);
     console.log(newPassword);
+  } else {
+    delete validCharLists.uppercase;
+    console.log(validCharLists);
   }
   if (reqObj.numeric === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.numbers);
     newPassword.push(char);
+    validCharLists.numbers.push(characters.numbers);
     console.log(newPassword);
+  } else {
+    delete validCharLists.numbers;
+    console.log(validCharLists);
   }
   if (reqObj.specialCharacters === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.specialCharacters);
     newPassword.push(char);
+    validCharLists.specialCharacters.push(characters.specialCharacters);
     console.log(newPassword);
+  } else {
+    delete validCharLists.specialCharacters;
+    console.log(validCharLists);
   }
 };
 
@@ -143,9 +168,12 @@ var completePasswordLength = function () {
   //if the requested pass length and the current length of the new password are not the same run the while loop
   while (passwordCriteria.length !== newPassword.length) {
     //get a random number based on the length of the characters object array
-    var randObjNum = Math.floor(Math.random() * Object.keys(characters).length);
+    var randObjNum = Math.floor(
+      Math.random() * Object.keys(validCharLists).length
+    );
     // value returned is the name of the object
     var list = Object.keys(characters)[randObjNum];
+    console.log(list);
     var char;
     switch (list) {
       case "lowercase":
@@ -246,17 +274,27 @@ var charTypes = function () {
   } else {
     window.alert("No special characters, got it!");
   }
+
+  if (
+    !passwordCriteria.specialCharacters &&
+    !passwordCriteria.lowercase &&
+    !passwordCriteria.uppercase &&
+    !passwordCriteria.numeric
+  ) {
+    window.alert("  At least ONE character type has to be selected");
+    charTypes();
+  }
 };
 
 var generatePassword = function () {
   // call length function
-  console.log(Math.floor(Math.random() * Object.keys(characters).length));
-  // passwordLength();
-  // charTypes();
-  // minRequirements(passwordCriteria);
-  // completePasswordLength();
-  // //resetting the array to empty
-  // newPassword = [];
+  // console.log(Math.floor(Math.random() * Object.keys(characters).length));
+  passwordLength();
+  charTypes();
+  minRequirements(passwordCriteria);
+  completePasswordLength();
+  //resetting the array to empty
+  newPassword = [];
 };
 
 // Get references to the #generate element
