@@ -1,23 +1,23 @@
 # Random Password Generator Application
 
-## About 
+## About
+
 The Random Password Generator Application assignment is a fun one page application the uses and combines a plethora of basic JavaScript concepts:
 
-* Functions
-* Arrays
-* Objects 
-* Recursion
-* Prompts 
-* Validation
-* EventListeners
+- Functions
+- Arrays
+- Objects
+- Recursion
+- Prompts
+- Validation
+- EventListeners
 
-The current iteration of the application is fairly optimized by implementing functions where possible in order to DRY (don't repeat yourself) and by using objects to keep information bundled together. 
-
+The current iteration of the application is fairly optimized by implementing functions where possible in order to DRY (don't repeat yourself) and by using objects to keep information bundled together.
 
 ---
 
-
 ## User Story
+
 ```
 * AS AN employee with access to sensitive data
 * I WANT to randomly generate a password that meets certain criteria
@@ -25,6 +25,7 @@ The current iteration of the application is fairly optimized by implementing fun
 ```
 
 ## Acceptance Criteria
+
 ```
 * GIVEN I need a new, secure password
 * WHEN I click the button to generate a password
@@ -45,13 +46,10 @@ The current iteration of the application is fairly optimized by implementing fun
 
 ---
 
+## Screenshot
 
-## Screenshot 
-
-![Screebshot](./screenshots/575-screenshot.png)
-
+![Screebshot](./passwordGeneratorScreenshot.png)
 
 ## Link to Deployed Application
 
-
-
+https://allanp94.github.io/03-JSPasswordGenerator/
