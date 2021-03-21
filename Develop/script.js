@@ -139,10 +139,8 @@ var minRequirements = function (reqObj) {
   if (reqObj.numeric === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.numbers);
-    console.log(characters.numbers);
     newPassword.push(char);
     validCharLists.numbers = characters.numbers;
-    console.log(validCharLists.numbers);
   } else {
     delete validCharLists.numbers;
   }
@@ -152,7 +150,6 @@ var minRequirements = function (reqObj) {
     char = randListNum(characters.specialCharacters);
     newPassword.push(char);
     validCharLists.specialCharacters = characters.specialCharacters;
-    console.log(newPassword);
   } else {
     delete validCharLists.specialCharacters;
   }
@@ -201,7 +198,7 @@ var completePasswordLength = function (objList) {
     }
     newPassword.push(char);
   }
-  console.log(newPassword);
+  // console.log(newPassword);
 };
 
 var passwordLength = function () {
@@ -216,7 +213,7 @@ var passwordLength = function () {
   //password length validation
   if (
     passLen < 8 ||
-    passLen >= 128 ||
+    passLen > 128 ||
     passwordCriteria.length === "" ||
     passwordCriteria.length === null ||
     isNaN(passwordCriteria.length)
@@ -281,7 +278,9 @@ var charTypes = function () {
     !passwordCriteria.uppercase &&
     !passwordCriteria.numeric
   ) {
-    window.alert("  At least ONE character type has to be selected");
+    window.alert(
+      "  At least ONE character type has to be selected in order to generate a password"
+    );
     charTypes();
   }
 };
