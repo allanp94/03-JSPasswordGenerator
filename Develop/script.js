@@ -9,7 +9,7 @@ var passwordCriteria = {
 
 var newPassword = [];
 
-//empty object array so i can push the valid lists from the users input
+//empty object array in order to copy the valid lists from the users input
 var validCharLists = {
   uppercase: "",
   lowercase: "",
@@ -111,9 +111,10 @@ var characters = {
   ],
 };
 
-//function that iterates the minimun requirements
+//function that iterates the minimun requirements and adds at least one character
 var minRequirements = function (reqObj) {
   var char;
+
   if (reqObj.lowercase === true) {
     //get a random number based on the length of the array
     char = randListNum(characters.lowercase);
@@ -125,6 +126,7 @@ var minRequirements = function (reqObj) {
     //remove the object if not required in the char type for the password
     delete validCharLists.lowercase;
   }
+
   if (reqObj.uppercase === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.uppercase);
@@ -133,6 +135,7 @@ var minRequirements = function (reqObj) {
   } else {
     delete validCharLists.uppercase;
   }
+
   if (reqObj.numeric === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.numbers);
@@ -143,6 +146,7 @@ var minRequirements = function (reqObj) {
   } else {
     delete validCharLists.numbers;
   }
+
   if (reqObj.specialCharacters === true) {
     //get a random number based on the length of the  array
     char = randListNum(characters.specialCharacters);
@@ -195,7 +199,6 @@ var completePasswordLength = function (objList) {
       default:
         console.log(" default switch statement");
     }
-    console.log(char);
     newPassword.push(char);
   }
   console.log(newPassword);
@@ -282,6 +285,8 @@ var charTypes = function () {
     charTypes();
   }
 };
+
+//resets the values if the users refreshes the page
 var reset = function () {
   newPassword = [];
   validCharLists = {
@@ -301,13 +306,13 @@ var reset = function () {
 
 var generatePassword = function () {
   // call length function
-  // console.log(Math.floor(Math.random() * Object.keys(characters).length));
   passwordLength();
   charTypes();
   minRequirements(passwordCriteria);
   completePasswordLength(validCharLists);
-  //resetting values so user can refresh and have another go
+  var generatedPass = newPassword.join("");
   reset();
+  return generatedPass;
 };
 
 // Get references to the #generate element
