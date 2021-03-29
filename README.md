@@ -48,7 +48,7 @@ The current iteration of the application is fairly optimized by implementing fun
 
 ## Screenshot
 
-![Screebshot](./passwordGeneratorScreenshot.png)
+![Screenshot](./passwordGeneratorScreenshot.png)
 
 ## Link to Deployed Application
 
